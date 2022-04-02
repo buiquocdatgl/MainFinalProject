@@ -81,18 +81,19 @@ function Dashboard() {
     submitFormData.append("name", formdata.name);
     submitFormData.append("description", formdata.description);
     submitFormData.append("quantity", formdata.quantity);
-    console.log(submitFormData);
     const { status, data } = await createProduct(submitFormData);
     if (status === 201) {
       toast.success("Create success");
       setProducts((prev) => data);
       setImage({ preview: "", data: "" });
       reset({ name: "", description: "", quantity: "" });
-      setOpen((prev) => !prev);
       fetchData();
+      setOpen((prev) => !prev);
     } else {
       toast.error(data.message);
     }
+    console.log(image.data)
+    console.log(submitFormData);
   };
 
   const handleFileChange = (e) => {
@@ -120,7 +121,6 @@ function Dashboard() {
   };
 
   const editHandler = (e, id) => {
-    console.log(id);
     e.preventDefault();
     const getSingleCategory = async () => {
       const { data, status } = await getSingleProduct(id);
@@ -138,7 +138,7 @@ function Dashboard() {
 
   const deletProduct = async (event) => {
     event.preventDefault();
-    const { data, status } = await deleteProduct(productDelete._id);
+    const { data, status } = await deleteProduct(productDelete.id);
     if (status === 200) {
       toast.success(data.message);
       fetchData();
@@ -275,7 +275,7 @@ function Dashboard() {
                   <div className="flex gap-x-4 items-center">
                     <img
                       className="w-14 h-14"
-                      src={`${process.env.REACT_APP_PREFIX}${item.imageLink}`}
+                      src={`http://localhost:11000${item.imageLink}`}
                       alt=""
                     />
                     <div className="flex flex-col gap-y-0.5">
@@ -419,7 +419,7 @@ function Dashboard() {
               {...register("quantity")}
             />
             <ErrorMessage
-              name="quantity"
+              name="image"
               errors={errors}
               render={({ message }) => <ErrorMessageCustom message={message} />}
             />

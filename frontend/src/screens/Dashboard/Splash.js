@@ -15,17 +15,20 @@ const SplashScreen = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   return (
+    
       <LottieView
-        source={require('../../assets/images/load.json')}
         autoPlay
+        key="animation"
         loop={false}
         speed={0.5}
         resizeMode="cover"
+        source={require('../../assets/images/load.json')}
         onAnimationFinish={() => {
           console.log('Animation Finished!')
           navigation.replace('Onboard');
         }}
       />
+
   );
 };
 

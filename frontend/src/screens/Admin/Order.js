@@ -9,7 +9,6 @@ function Order(props) {
   const [orderList, setOrderList] = useState();
 
   const data = props.route.params;
-  console.log(data);
 
   useFocusEffect(
     useCallback(() => {

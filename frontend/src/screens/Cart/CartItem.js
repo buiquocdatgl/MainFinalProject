@@ -1,39 +1,57 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
-import { Text, Left, Right, ListItem, Thumbnail, Body } from "native-base";
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 const CartItem = (props) => {
   const data = props.item.item;
+
   return (
-    <ListItem style={styles.listItem} key={Math.random()} avatar>
-      <Left>
-        <Thumbnail
+    <View style={styles.container}>
+      <View style={styles.orderItem}>
+        <Image 
+          style={styles.image} 
           source={{
             uri: "http://192.168.101.9:11000" + data.imageLink,
           }}
         />
-      </Left>
-      <Body style={styles.body}>
-        <Left>
-          <Text>{data.name}</Text>
-          <Text>{data.description}</Text>
-        </Left>
-      </Body>
-    </ListItem>
+        <View>
+        <Text style={styles.title}>{data.name}</Text>
+        <Text style={styles.desc}>{data.description}</Text>
+      </View>
+    </View>
+  </View>
   );
 };
 
 const styles = StyleSheet.create({
-  listItem: {
-    alignItems: "center",
-    backgroundColor: "white",
-    justifyContent: "center",
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: '#374151',
+    marginTop: 35,
+    width: 350,
+    marginLeft: 32
   },
-  body: {
-    margin: 10,
-    alignItems: "center",
-    flexDirection: "row",
+  orderItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  image: {
+    width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
+    marginRight: 12,
+  },
+  title: {
+    color: '#fff',
+    fontSize: 16,
+  },
+  desc: {
+    fontSize: 12,
+    color: '#FCD34D',
   },
 });
+
 
 export default CartItem;

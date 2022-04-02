@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Text, View, Button, TouchableOpacity } from "react-native";
+import { Text, View, Button, TouchableOpacity, ScrollView } from "react-native";
 import { Item, Picker, Toast } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import FormContainer from "../../../Shared/Form/FormContainer";
@@ -53,14 +53,9 @@ const Checkout = (props) => {
     props.navigation.navigate("Confirm", {order: order })
 }
 
-
   return (
-    <KeyboardAwareScrollView
-      viewIsInsideTabBar={true}
-      extraHeight={200}
-      enableOnAndroid={true}
-    >
-      <FormContainer title={"Shipping Address"}>
+    <ScrollView keyboardShouldPersistTaps='always'>
+    <FormContainer title={"Shipping Address"}>
         <Text>Phone:</Text>
         <Input
           placeholder={"Phone"}
@@ -95,7 +90,9 @@ const Checkout = (props) => {
           <Button title="Confirm" onPress={() => checkOut()} />
         </View>
       </FormContainer>
-    </KeyboardAwareScrollView>
+  </ScrollView>
+      
+   
   );
 };
 

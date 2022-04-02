@@ -59,11 +59,13 @@ const Confirm = props => {
       phone: order.phone,
       returnDate: order.returnDate,
       status: order.status,
+
     };
 
     axios
       .post('http://192.168.101.9:11000/api/orders', body)
       .then(res => {
+        console.log(res.data)
         if (res.status == 200 || res.status == 201) {
           Toast.show({
             topOffset: 60,
@@ -71,8 +73,8 @@ const Confirm = props => {
             text1: 'Confirm Your Order Successfully',
           });
           setTimeout(() => {
-            props.clearCart();
-            props.navigation.navigate('Delivery');
+            // props.clearCart();
+            props.navigation.navigate('CheckInfo', res.data);
           }, 500);
         }
       })
@@ -85,9 +87,6 @@ const Confirm = props => {
         });
       });
   };
-
-  console.log('ProductUpdate');
-  console.log(productUpdate);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

@@ -14,7 +14,8 @@ function MyStack() {
                 name="Cart"
                 component={Cart}
                 options={{
-                    headerShown: false
+                    headerShown: false,
+                    tabBarStyle: { display: "none" },
                 }}
             />
             <Stack.Screen

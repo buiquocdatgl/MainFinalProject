@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiInstance = axios.create({
-    baseURL: process.env.REACT_APP_BASE_API,
+    baseURL: 'http://localhost:11000/api',
     validateStatus: (status) => status <= 500,
 });
 
@@ -24,3 +24,7 @@ export const updateProduct = (id, formData) =>
 
 export const deleteProduct = (id) =>
     apiInstance.delete(`/product/${id}`);
+
+//Users
+export const getUser = () =>
+    apiInstance.get("/users/");

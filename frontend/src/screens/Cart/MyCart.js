@@ -119,10 +119,7 @@ const MyCart = props => {
             rightOpenValue={-75}
           />
           <View style={styles.bottomContainer}>
-            {/* <Left>
-              <Text style={styles.price}>$ {totalPrice}</Text>
-            </Left> */}
-            <Right>
+            <Right style={{marginLeft: 150}}>
               <EasyButton danger medium onPress={() => props.clearCart()}>
                 <Text style={{color: 'white'}}>Clear</Text>
               </EasyButton>
@@ -180,7 +177,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flexDirection: 'row',
     position: 'absolute',
-    bottom: 0,
+    bottom: 20,
     left: 0,
     backgroundColor: 'white',
     elevation: 20,
@@ -194,6 +191,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     flexDirection: 'row',
+    marginTop: 37,
+    marginRight: 35
   },
   hiddenButton: {
     backgroundColor: 'red',

@@ -4,6 +4,15 @@ const { oauth } = require('./setting');
 const axios = require('axios');
 const e = require('express');
 
+const getUsers = async (req, res) => {
+    try {
+      const result = await User.find({});
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(400).json({ message: error.message, status: 400 });
+    }
+  };
+
 const getUserMe = async (req, res) => {
     const { id } = req.params;
     const { gaeUrl } = oauth;
@@ -49,5 +58,6 @@ async function findOrCreateUser(data) {
     return user;
 }
 module.exports = {
-    getUserMe
+    getUserMe,
+    getUsers
 }

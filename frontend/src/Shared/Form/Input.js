@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { TextInput, StyleSheet } from 'react-native'
 
 const Input = (props) => {
+    const lastNameRef = useRef();
     return (
         <TextInput
         style={styles.input}
@@ -11,9 +12,10 @@ const Input = (props) => {
         value={props.value}
         autoCorrect={props.autoCorrect}
         onChangeText={props.onChangeText}
-        onFocus={props.onFocus}
+        //onFocus={props.onFocus}
         secureTextEntry={props.secureTextEntry}
         keyboardType={props.keyboardType}
+        ref={lastNameRef}
         >
         </TextInput>
     );
