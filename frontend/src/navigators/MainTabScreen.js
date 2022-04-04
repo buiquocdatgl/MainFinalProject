@@ -19,6 +19,7 @@ import OnboardingScreen from './OnboardNavigator';
 import AdminNavigator from './AdminNavigator';
 import scan from '../assets/images/scan.png';
 import CartIcon from '../Shared/CartIcon';
+import CheckInfo from '../screens/Cart/Checkout/CheckInfo';
 
 const Tab = createBottomTabNavigator();
 
@@ -100,8 +101,8 @@ const MainTabScreen = ({navigation}) => {
         }}></Tab.Screen>
 
       <Tab.Screen
-        name="Profile"
-        component={HomeScreen}
+        name="CheckInfo"
+        component={CheckInfo}
         options={{
           // tabBarLabel: 'Profile',
           // tabBarColor: '#594F46',

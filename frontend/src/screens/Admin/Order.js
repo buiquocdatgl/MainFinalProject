@@ -2,6 +2,7 @@ import React, {useState, useCallback} from 'react';
 import {View, FlatList, Text} from 'react-native';
 import axios from 'axios';
 import {useFocusEffect} from '@react-navigation/native';
+import {REACT_APP_API} from '../../../APIUrl';
 
 import OrderCard from '../../Shared/OrderCard';
 
@@ -21,14 +22,17 @@ function Order(props) {
 
   const getOrders = () => {
     axios
-      .get('http://192.168.101.9:11000/api/orders')
+      .get(`${REACT_APP_API}/orders`)
       .then(x => {
         setOrderList(x.data);
       })
       .catch(error => console.log(error));
   };
   return (
-    <View>
+    <View style={{
+      flex: 1,
+      flexDirection: "column",
+    }}>
       <FlatList
         data={orderList}
         renderItem={({item}) => <OrderCard {...item} editMode={true} />}

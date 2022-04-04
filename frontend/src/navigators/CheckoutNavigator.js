@@ -15,7 +15,7 @@ function MyTabs() {
     <Tab.Navigator>
       <Tab.Screen name="Checkout" component={Checkout} />
       <Tab.Screen name="Confirm" component={Confirm} />
-      <Tab.Screen name="CheckInfo" component={CheckInfo} />
+      {/* <Tab.Screen name="CheckInfo" component={CheckInfo} /> */}
       <Tab.Screen name="Delivery" component={Delivery} />
       {/* <Tab.Screen name="Success" component={Success} /> */}
     </Tab.Navigator>

@@ -3,13 +3,15 @@ import {View, StyleSheet, Dimensions, ScrollView, Button} from 'react-native';
 import {Text, Left, Right, ListItem, Thumbnail, Body, List} from 'native-base';
 import {connect} from 'react-redux';
 import * as actions from '../../../Redux/Actions/cartActions';
+import {REACT_APP_API} from '../../../../APIUrl';
+import {REACT_APP_API_Image} from '../../../../APIUrl';
 
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
 
 var {width, height} = Dimensions.get('window');
 
-const Confirm = props => {
+const Confirm = (props, navigation) => {
   const finalOrder = props.route.params;
 
   const [productUpdate, setProductUpdate] = useState();
@@ -29,7 +31,7 @@ const Confirm = props => {
     if (order) {
       order.orderItems.forEach(cart => {
         axios
-          .get(`http://192.168.101.9:11000/api/product/${cart.product.id}`)
+          .get(`${REACT_APP_API}/product/${cart.product.id}`)
           .then(data => {
             products.push(data.data);
             setProductUpdate(products);
@@ -63,9 +65,8 @@ const Confirm = props => {
     };
 
     axios
-      .post('http://192.168.101.9:11000/api/orders', body)
+      .post(`${REACT_APP_API}/orders`, body)
       .then(res => {
-        console.log(res.data)
         if (res.status == 200 || res.status == 201) {
           Toast.show({
             topOffset: 60,
@@ -73,7 +74,7 @@ const Confirm = props => {
             text1: 'Confirm Your Order Successfully',
           });
           setTimeout(() => {
-            // props.clearCart();
+            props.clearCart();
             props.navigation.navigate('CheckInfo', res.data);
           }, 500);
         }
@@ -108,7 +109,7 @@ const Confirm = props => {
                     <Left>
                       <Thumbnail
                         source={{
-                          uri: 'http://192.168.101.9:11000' + x.imageLink,
+                          uri: `${REACT_APP_API_Image}` + x.imageLink,
                         }}
                       />
                     </Left>

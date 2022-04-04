@@ -1,7 +1,8 @@
 import axios from "axios";
+import {REACT_APP_API} from '../../APIUrl'
 
 const apiInstance = axios.create({
-  baseURL: "http://192.168.101.9:11000/api",
+  baseURL: `${REACT_APP_API}`,
   validateStatus: (status) => status <= 500,
   headers: {
     "Content-Type": "application/json",
@@ -13,3 +14,5 @@ apiInstance.interceptors.request.use((request) => {
 });
 
 export const getProduct = () => apiInstance.get("/product/");
+
+export const getOrder = (id) => apiInstance.get(`/orders/${id}`);

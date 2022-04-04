@@ -12,6 +12,7 @@ import {
 import Toast from "react-native-toast-message";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { COLORS } from "../../constants/index";
+import {REACT_APP_API_Image} from '../../../APIUrl'
 import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/cartActions";
 
@@ -58,7 +59,7 @@ const ProductCard = (props) => {
         </View>
         <Image   
         source={{
-            uri: "http://192.168.101.9:11000" + item.imageLink,
+            uri: `${REACT_APP_API_Image}` + item.imageLink,
           }} 
           style={styles.cardImage} />
         <View style={styles.cardDetails}>

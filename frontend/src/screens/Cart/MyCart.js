@@ -19,6 +19,7 @@ import EasyButton from '../../Shared/StyledComponents/EasyButton';
 import CartQuantityButton from '../../component/CartQuantityButton';
 import Header from '../../component/Header';
 import IconButton from '../../component/IconButton';
+import {REACT_APP_API} from '../../../APIUrl'
 import {connect} from 'react-redux';
 import * as actions from '../../Redux/Actions/cartActions';
 import axios from 'axios';
@@ -39,7 +40,7 @@ const MyCart = props => {
     var products = [];
     props.cartItems.forEach(cart => {
       axios
-        .get(`http://192.168.101.9:11000/api/product/${cart.product.id}`)
+        .get(`${REACT_APP_API}/product/${cart.product.id}`)
         .then(data => {
           products.push(data.data);
           setProductUpdate(products);

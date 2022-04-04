@@ -6,6 +6,7 @@ import TrafficLight from './StyledComponents/TrafficLight';
 import EasyButton from './StyledComponents/EasyButton';
 import Toast from 'react-native-toast-message';
 import axios from 'axios';
+import {REACT_APP_API} from '../../APIUrl';
 
 const codes = [
   {name: 'pending', code: '3'},
@@ -29,7 +30,6 @@ const OrderCard = props => {
       setStatusText('delivered');
       setCardColor('#2ECC71');
     }
-
     return () => {
       setOrderStatus();
       setStatusText();
@@ -47,7 +47,7 @@ const OrderCard = props => {
     };
 
     axios
-      .put(`http://192.168.101.9:11000/api/orders/${props.id}`, order)
+      .put(`${REACT_APP_API}/orders/${props.id}`, order)
       .then(res => {
         if (res.status == 200 || res.status == 201) {
           Toast.show({
@@ -57,10 +57,11 @@ const OrderCard = props => {
             text2: 'Approve User Rent Material',
           });
           // setTimeout(() => {
-          //   props.navigation.navigate('Home');
+          //   props.navigation.navigate('Order');
           // }, 500);
         }
       })
+      
       .catch(error => {
         Toast.show({
           topOffset: 60,
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
     padding: 20,
     margin: 10,
     borderRadius: 10,
-    marginTop: 70,
+    marginTop: 40,
   },
   container1: {
     borderRadius: 10,

@@ -25,7 +25,7 @@ app.use(morgan("dev"));
 app.use(errorhandler());
 app.use(express.json({ urlEncoded: true }));
 app.use("/statics", express.static("statics"));
-
+app.use('/image', express.static(__dirname + '/statics/qr'));
 
 dbService.connect(process.env.DB_URL);
 

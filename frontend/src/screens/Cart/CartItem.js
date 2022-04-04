@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {REACT_APP_API_Image} from '../../../APIUrl'
 
 const CartItem = (props) => {
   const data = props.item.item;
@@ -10,7 +11,7 @@ const CartItem = (props) => {
         <Image 
           style={styles.image} 
           source={{
-            uri: "http://192.168.101.9:11000" + data.imageLink,
+            uri: `${REACT_APP_API_Image}` + data.imageLink,
           }}
         />
         <View>
