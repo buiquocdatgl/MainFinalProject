@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -10,11 +10,79 @@ import {
     StatusBar,
 
 } from 'react-native';
+import * as WebBrowser from 'expo-web-browser';
+import * as AuthSession from "expo-auth-session";
 import LottieView from 'lottie-react-native';
 import TextButton from '../../component/TextButton';
 import { SIZES } from '../../constants/index';
+import { REACT_APP_API } from '../../../APIUrl';
+
+WebBrowser.maybeCompleteAuthSession();
+
+const auth0ClientId = "fmIHlH0lBYabhVc6pHKcAs1IzqchnnXZLuYKQAiy";
+const authorizationEndpoint = "https://gae-gw.systems/oauth/authorize/";
+
+const useProxy = Platform.select({ web: false, default: true });
+const redirectUri = AuthSession.makeRedirectUri({ useProxy });
+
+
 
 const SignInScreen = ({ navigation }) => {
+
+    const [accessToken, setAccessToken] = useState(null);
+    const [user, setUser] = useState({});
+    const [error, setError] = useState(null);
+
+    // Request
+    const [request, result, promptAsync] = AuthSession.useAuthRequest(
+        {
+            usePKCE: true,
+            redirectUri,
+            clientId: auth0ClientId,
+            // id_token will return a JWT token
+            responseType: "code",
+            // retrieve the user's profile
+            scopes: ["users:me", "users:list"],
+        },
+       
+        { authorizationEndpoint }
+    );
+
+    React.useEffect(() => {
+        if (result?.type === 'success') {
+            const { code } = result.params;
+            fetch(`${REACT_APP_API}/auth/mobile/token`, {
+                method: 'POST',
+                body: JSON.stringify({code: code, code_verifier: request.codeVerifier}),
+                headers: {
+                    'content-type': 'application/json',
+
+                },
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    setAccessToken(data._id);
+                    return data._id;
+                })
+                .then(id => fetch(`${REACT_APP_API}/users/me/${id}`, {
+                    method: 'GET',
+                    headers: {
+                        accept: 'application/json',
+                    },
+                }))
+                .then(res => res.json())
+                .then((data) => {
+                    setUser(data)
+                    console.log(data);
+                    //navigation tu dday
+                })
+               
+                .catch(setError);
+
+        }
+    }, [result]);
+
+   
 
     return (
         <View style={styles.container}>
@@ -38,7 +106,7 @@ const SignInScreen = ({ navigation }) => {
                     marginLeft: 100,
                     marginBottom: 100
                 }}
-                onPress={() => navigation.replace('MainTabScreen')}
+                onPress={() => promptAsync({ useProxy })}
             />
 
         </View>

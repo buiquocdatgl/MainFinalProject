@@ -18,8 +18,8 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          {/* <Stack.Screen name="OnboardingScreen" component={OnboardScreen} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} /> */}
+          {/* <Stack.Screen name="OnboardingScreen" component={OnboardScreen} /> */}
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
           <Stack.Screen name="MainTabScreen" component={MainTabScreen} />
         </Stack.Navigator>
         <Toast ref={ref => Toast.setRef(ref)} />

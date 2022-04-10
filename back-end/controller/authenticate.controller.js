@@ -30,6 +30,31 @@ const authenticateControler = {
             });
     },
 
+    loginMobile: (req, res) => {
+        const { code, code_verifier } = req.body;
+        console.log(code_verifier);
+        const { tokenUrl, mobile_clientId, mobile_clientSecret, mobile_redirectUri  } = oauth;
+        const payload = qs.stringify({
+            client_id: mobile_clientId,
+            client_secret: mobile_clientSecret,
+            code,
+            code_verifier,
+            redirect_uri: mobile_redirectUri,
+            grant_type: 'authorization_code',
+        });
+        axios.post(tokenUrl, payload, { headers: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' } })
+            .then(async function (resp) {
+                const newAuth = await createAuth(resp.data);
+                res.status(201).send(newAuth);
+            })
+            .catch((err) => {
+                console.error('Error while requesting a token', err);
+                res.status(500).json({
+                    error: err.message,
+                });
+            });
+    },
+
 }
 async function createAuth(data) {
     const auth = new Auth({
