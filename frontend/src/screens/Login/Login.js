@@ -74,9 +74,9 @@ const SignInScreen = ({ navigation }) => {
                 .then((data) => {
                     setUser(data)
                     console.log(data);
-                    //navigation tu dday
+                    navigation.replace('MainTabScreen')
                 })
-               
+                
                 .catch(setError);
 
         }
