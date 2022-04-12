@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../screens/Home/HomeScreen';
 import CartNavigator from './CartNavigator';
 import ScanScreen from '../screens/Admin/Scan';
@@ -20,6 +21,7 @@ import AdminNavigator from './AdminNavigator';
 import scan from '../assets/images/scan.png';
 import CartIcon from '../Shared/CartIcon';
 import CheckInfo from '../screens/Cart/Checkout/CheckInfo';
+import Profile from '../screens/Profile/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -104,8 +106,6 @@ const MainTabScreen = ({navigation}) => {
         name="CheckInfo"
         component={CheckInfo}
         options={{
-          // tabBarLabel: 'Profile',
-          // tabBarColor: '#594F46',
           tabBarIcon: ({color, focused}) => (
             <View
               style={{
@@ -116,15 +116,13 @@ const MainTabScreen = ({navigation}) => {
             </View>
           ),
           headerShown: false,
-          // tabBarStyle: { display: "none" },
+          tabBarStyle: { display: "none" },
         }}
       />
       <Tab.Screen
-        name="DeliveryStatus"
-        component={HomeScreen}
+        name="Profile"
+        component={Profile}
         options={{
-          // tabBarLabel: 'BookMark',
-          // tabBarColor: '#A67772',
           tabBarIcon: ({color, focused}) => (
             <View
               style={{

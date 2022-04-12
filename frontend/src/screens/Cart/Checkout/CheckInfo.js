@@ -32,8 +32,6 @@ const CheckInfo = (props) => {
               console.log(e);
             });
     };
-    console.log('Get Order');
-    console.log(order.orderItems);
 
   return (
     <View style={{marginTop:50}}>
