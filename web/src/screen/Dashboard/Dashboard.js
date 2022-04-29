@@ -82,9 +82,9 @@ function Dashboard() {
     submitFormData.append("description", formdata.description);
     submitFormData.append("quantity", formdata.quantity);
     const { status, data } = await createProduct(submitFormData);
-    if (status === 201) {
+    if (status === 200) {
       toast.success("Create success");
-      setProducts((prev) => data);
+      setProducts((prev) => [...prev, data]);
       setImage({ preview: "", data: "" });
       reset({ name: "", description: "", quantity: "" });
       fetchData();

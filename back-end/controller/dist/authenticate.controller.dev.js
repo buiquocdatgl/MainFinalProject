@@ -49,7 +49,7 @@ var authenticateControler = {
         }
       });
     })["catch"](function (err) {
-      console.error('Error while requesting a token', err);
+      console.error('Error while requesting a token', err.message);
       res.status(500).json({
         error: err.message
       });

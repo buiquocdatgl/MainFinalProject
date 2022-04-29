@@ -23,7 +23,7 @@ const authenticateControler = {
                 res.status(201).send(newAuth);
             })
             .catch((err) => {
-                console.error('Error while requesting a token', err);
+                console.error('Error while requesting a token', err.message);
                 res.status(500).json({
                     error: err.message,
                 });

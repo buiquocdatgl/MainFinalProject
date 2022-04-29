@@ -5,6 +5,7 @@ import axios from 'axios';
 import { getOrder } from "../../../apiServices/index";
 import {REACT_APP_API} from '../../../../APIUrl';
 import {REACT_APP_API_Image} from '../../../../APIUrl';
+import { connect } from "react-redux";
 
 
 var {width, height} = Dimensions.get('window');
@@ -13,7 +14,6 @@ const CheckInfo = (props) => {
 
     const data = props.route.params
     const [order, setOrder] = useState({});
-
 
     useEffect(() => {
         getOrder();
@@ -109,4 +109,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default (CheckInfo);
+
+export default CheckInfo;

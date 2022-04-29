@@ -16,6 +16,8 @@ import LottieView from 'lottie-react-native';
 import TextButton from '../../component/TextButton';
 import { SIZES } from '../../constants/index';
 import { REACT_APP_API } from '../../../APIUrl';
+import { connect } from "react-redux";
+import * as actions from "../../Redux/Actions/userActions";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -27,11 +29,12 @@ const redirectUri = AuthSession.makeRedirectUri({ useProxy });
 
 
 
-const SignInScreen = ({ navigation }) => {
+const SignInScreen = ({navigation, addUser}) => {
 
     const [accessToken, setAccessToken] = useState(null);
     const [user, setUser] = useState({});
     const [error, setError] = useState(null);
+
 
     // Request
     const [request, result, promptAsync] = AuthSession.useAuthRequest(
@@ -74,7 +77,7 @@ const SignInScreen = ({ navigation }) => {
                 .then((data) => {
                     setUser(data)
                     console.log(data);
-                    navigation.replace('MainTabScreen')
+                    addUser(data)
                 })
                 
                 .catch(setError);
@@ -82,7 +85,11 @@ const SignInScreen = ({ navigation }) => {
         }
     }, [result]);
 
-   
+    React.useEffect(() => {
+        if(Object.keys(user).length !== 0){
+            navigation.replace('MainTabScreen')
+        }
+    },[user])
 
     return (
         <View style={styles.container}>
@@ -113,7 +120,13 @@ const SignInScreen = ({ navigation }) => {
     )
 }
 
-export default SignInScreen;
+const mapDispatchToProps = (dispatch) => {
+    return {
+      addUser: (user) =>
+        dispatch(actions.loginUser(user)),
+  };
+  };
+
 
 const { height } = Dimensions.get("screen");
 const height_logo = height * 0.28;
@@ -139,3 +152,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 });
+export default connect(null, mapDispatchToProps)(SignInScreen);

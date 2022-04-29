@@ -32,6 +32,8 @@ const HomeScreen = ({ navigation, props }) => {
     { id: 4, title: "Micro", img: require("../../assets/images/home4.png") },
   ];
 
+  
+
   const [editProduct, setEditProduct] = useState([]);
   const categoryList = ["Popular", "Recommended", "Nearest"];
   const scrollX = React.useRef(new Animated.Value(0)).current;
