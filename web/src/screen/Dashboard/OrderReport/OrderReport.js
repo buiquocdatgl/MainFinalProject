@@ -51,7 +51,7 @@ function OrderReport() {
 
 
   return (
-    <div className="p-6 bg-gray-900 rounded-lg h-full">
+    <div className="p-6 bg-gray-900 rounded-lg h-4/6">
       <div className="flex justify-between items-center pb-4">
         <h2 className="text-xl font-semibold leading-loose text-white">Order Report</h2>
         <button className="flex py-3 px-4 rounded-lg border border-gray-700 gap-x-2.5">

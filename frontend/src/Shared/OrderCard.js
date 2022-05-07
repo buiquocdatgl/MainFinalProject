@@ -16,9 +16,9 @@ const codes = [
 const OrderCard = props => {
   const [orderStatus, setOrderStatus] = useState();
   const [statusText, setStatusText] = useState();
-  const [statusChange, setStatusChange] = useState();
+  const [statusChange, setStatusChange] = useState('3');
   const [token, setToken] = useState();
-  const [cardColor, setCardColor] = useState();
+  const [cardColor, setCardColor] = useState('#E74C3C');
 
   useEffect(() => {
     if (props.status == '3') {
@@ -45,6 +45,7 @@ const OrderCard = props => {
       returnDate: props.returnDate,
       status: statusChange,
     };
+    
 
     axios
       .put(`${REACT_APP_API}/orders/${props.id}`, order)
@@ -59,6 +60,16 @@ const OrderCard = props => {
           // setTimeout(() => {
           //   props.navigation.navigate('Order');
           // }, 500);
+          if(statusChange === '3'){
+            setCardColor('#E74C3C');
+            setOrderStatus(<TrafficLight unavailable></TrafficLight>);
+
+          }
+          else{
+            setCardColor('#2ECC71');
+            setOrderStatus(<TrafficLight available></TrafficLight>);
+
+          }
         }
       })
       
@@ -99,7 +110,8 @@ const OrderCard = props => {
             selectedValue={statusChange}
             placeholder="Change Status"
             placeholderIconColor={{color: '#007aff'}}
-            onValueChange={e => setStatusChange(e)}>
+            onValueChange={e => setStatusChange(e)}
+            >
             {codes.map(c => {
               return <Picker.Item key={c.code} label={c.name} value={c.code} />;
             })}

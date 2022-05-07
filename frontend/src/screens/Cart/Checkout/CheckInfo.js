@@ -17,16 +17,21 @@ const CheckInfo = (props) => {
 
     useEffect(() => {
         getOrder();
-        return () => {
-            setOrder();
-        };
+        const interval = setInterval(() => {
+          getOrder();
+        }, 3000);
+    
+        return () => clearInterval(interval);
       }, [props]);
-
+    
     const getOrder = () => {
           axios
             .get(`${REACT_APP_API}/orders/` + data._id)
             .then(data => {
                 setOrder(data.data);
+                if(data?.data?.status === '2'){
+                  props.navigation.navigate("Delivery")
+                }
             })
             .catch(e => {
               console.log(e);
@@ -46,6 +51,7 @@ const CheckInfo = (props) => {
                 <Text>Room: {order.room}</Text>
                 <Text >Phone: {order.phone}</Text>
                 <Text >Role: {order?.user?.name}</Text>
+                <Text >Status: {order?.status === 3 ? 'pending' : 'delivered'}</Text>
                 <Text >Date Ordered: {order.dateOrdered}</Text>
                 <Text >Date Retrun: {order.returnDate}</Text>
                 <Text >Total Product: {order.totalProduct}</Text>
