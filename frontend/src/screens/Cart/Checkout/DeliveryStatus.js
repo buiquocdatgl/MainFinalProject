@@ -1,25 +1,46 @@
-import React from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   View,
   Text,
   Image,
   ScrollView
 } from 'react-native';
+import axios from 'axios';
 import Header from '../../../component/Header';
 import LineDiver from '../../../component/LineDiver';
 import TextButton from '../../../component/TextButton';
+import { useFocusEffect } from "@react-navigation/native";
+import { REACT_APP_API } from '../../../../APIUrl';
+import { REACT_APP_API_Image } from '../../../../APIUrl';
 import { images, COLORS, SIZES, FONTS, icons } from '../../../constants/index';
 
 function DeliveryStatus(props) {
 
-  const [currenStep, setCurrenStep] = React.useState(3);
+
+  const data = props.route.params
+  const [order, setOrder] = useState({});
+  const [currenStep, setCurrenStep] = useState(0);
+
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+      const interval = setTimeout(() => {
+        setCurrenStep(1);
+  
+      }, 3000);
+
+      return () => {
+        clearTimeout(interval);
+
+        isActive = false;
+      };
+    }, [])
+  );
+
 
   const trackOrder = [
-    { id: 1, title: 'Order Confirmed', sub_title: 'Your order has been received' },
-    { id: 2, title: 'Order Prepared', sub_title: 'Your order has been prepared' },
-    { id: 3, title: 'Delivery in Progress', sub_title: 'Hang on! Your food is on the way' },
-    { id: 4, title: 'Delivered', sub_title: 'Let get pick up' },
-    { id: 5, title: 'Rate Us', sub_title: 'Help us improve our service' },
+    { id: 1, title: 'Wating Confirm', sub_title: 'Your order has been received' },
+    { id: 2, title: 'Order Confirm', sub_title: 'Your order has been prepared' },
   ];
 
   function renderHeader() {
@@ -29,7 +50,7 @@ function DeliveryStatus(props) {
         containerStyle={{
           height: 50,
           marginHorizontal: SIZES.padding,
-          marginTop: 25
+          marginTop: 70
         }}
       />
     )
@@ -49,7 +70,7 @@ function DeliveryStatus(props) {
             color: COLORS.gray
           }}
         >
-          Estimated Delivery
+          Date Rent
         </Text>
         <Text
           style={{
@@ -58,7 +79,7 @@ function DeliveryStatus(props) {
             fontSize: 18
           }}
         >
-          21 Sept 2021 / 12:30PM
+          {`${order?.dateOrdered?.split('T')[0]} / ${order?.returnDate?.split('T')[0]}`}
         </Text>
       </View>
     )
@@ -205,7 +226,7 @@ function DeliveryStatus(props) {
         }}
       >
         <TextButton
-          label="Confrim"
+          label="OK"
           buttonContainerStyle={{
             height: 55,
             marginBottom: SIZES.padding,
@@ -213,7 +234,7 @@ function DeliveryStatus(props) {
             width: 200,
             marginLeft: 90,
           }}
-          onPress={() => navigation.navigate("DeliveryStatus")}
+          onPress={() => props.navigation.navigate("Success")}
         />
       </View>
     )

@@ -13,11 +13,39 @@ const Tab = createMaterialTopTabNavigator();
 function MyTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Checkout" component={Checkout} />
-      <Tab.Screen name="Confirm" component={Confirm} />
+      <Tab.Screen
+        name="Checkout"
+        component={Checkout}
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name="Confirm"
+        component={Confirm}
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+      />
       {/* <Tab.Screen name="CheckInfo" component={CheckInfo} /> */}
-      <Tab.Screen name="Delivery" component={Delivery} />
-      {/* <Tab.Screen name="Success" component={Success} /> */}
+      <Tab.Screen
+        name="Delivery"
+        component={Delivery}
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Tab.Screen
+        name="Success"
+        component={Success}
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+      />
     </Tab.Navigator>
   );
 }

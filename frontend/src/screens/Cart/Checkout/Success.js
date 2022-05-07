@@ -8,14 +8,9 @@ import {
 import TextButton from '../../../component/TextButton';
 import { images, COLORS, SIZES, FONTS } from '../../../constants/index';
 
-function Success({ navigation }) {
+function Success() {
 
-    React.useEffect(()=> {
-        const backHandler = BackHandler.addEventListener
-        ('hardwareBackPress', () => { return true })
 
-        return () => backHandler.remove();
-    })
   return (
     <View
         style={{
@@ -67,7 +62,7 @@ function Success({ navigation }) {
                 marginBottom: SIZES.padding,
                 borderRadius: SIZES.radius,
             }}
-            onPress={() => navigation.navigate("Delivery")}
+            // onPress={() => navigation.navigate("Delivery")}
         />
     </View>
   )

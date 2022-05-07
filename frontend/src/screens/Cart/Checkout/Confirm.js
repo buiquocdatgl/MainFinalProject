@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     padding: 8,
     alignContent: 'center',
     backgroundColor: 'white',
-    marginTop: 60,
+    marginTop: 100,
   },
   titleContainer: {
     justifyContent: 'center',

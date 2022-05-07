@@ -1,84 +1,83 @@
-import React, {useState, useEffect} from 'react';
-import {View, Image, StyleSheet, Dimensions, ScrollView} from 'react-native'
-import {Text, Left, Right, ListItem, Thumbnail, Body, List} from 'native-base';
+import React, { useState, useEffect } from 'react';
+import { View, Image, StyleSheet, Dimensions, ScrollView } from 'react-native'
+import { Text, Left, Right, ListItem, Thumbnail, Body, List } from 'native-base';
 import axios from 'axios';
 import { getOrder } from "../../../apiServices/index";
-import {REACT_APP_API} from '../../../../APIUrl';
-import {REACT_APP_API_Image} from '../../../../APIUrl';
+import { REACT_APP_API } from '../../../../APIUrl';
+import { REACT_APP_API_Image } from '../../../../APIUrl';
 import { connect } from "react-redux";
 
 
-var {width, height} = Dimensions.get('window');
+var { width, height } = Dimensions.get('window');
 
 const CheckInfo = (props) => {
 
-    const data = props.route.params
-    const [order, setOrder] = useState({});
+  const data = props.route.params
+  const [order, setOrder] = useState({});
 
-    useEffect(() => {
-        getOrder();
-        const interval = setInterval(() => {
-          getOrder();
-        }, 3000);
-    
-        return () => clearInterval(interval);
-      }, [props]);
-    
-    const getOrder = () => {
-          axios
-            .get(`${REACT_APP_API}/orders/` + data._id)
-            .then(data => {
-                setOrder(data.data);
-                if(data?.data?.status === '2'){
-                  props.navigation.navigate("Delivery")
-                }
-            })
-            .catch(e => {
-              console.log(e);
-            });
-    };
-    console.log(order);
+  useEffect(() => {
+    getOrder();
+    const interval = setInterval(() => {
+      getOrder();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [props]);
+
+  const getOrder = () => {
+    axios
+      .get(`${REACT_APP_API}/orders/` + data._id)
+      .then(data => {
+        setOrder(data.data);
+        if (data?.data?.status === '2') {
+          props.navigation.navigate("Delivery")
+        }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   return (
-    <View style={{marginTop:50}}>
-      <Image 
-          style = {{height: 350, resizeMode : 'cover', margin: 5 }}
-          source={{uri: `${REACT_APP_API_Image}/image/`+ data._id +'.png'}}
+    <View style={{ marginTop: 50 }}>
+      <Image
+        style={{ height: 350, resizeMode: 'cover', margin: 5 }}
+        source={{ uri: `${REACT_APP_API_Image}/image/` + data._id + '.png' }}
       />
-      <View style={{borderWidth: 1, borderColor: 'orange', padding: 8}}>
+      <View style={{ borderWidth: 1, borderColor: 'orange', padding: 8 }}>
         <Text style={styles.title}>Your Order Info:</Text>
-            <View style={{padding: 8}}>
-                <Text>Room: {order.room}</Text>
-                <Text >Phone: {order.phone}</Text>
-                <Text >Role: {order?.user?.name}</Text>
-                <Text >Status: {order?.status === 3 ? 'pending' : 'delivered'}</Text>
-                <Text >Date Ordered: {order.dateOrdered}</Text>
-                <Text >Date Retrun: {order.returnDate}</Text>
-                <Text >Total Product: {order.totalProduct}</Text>
-            </View>
-          <Text style={styles.title}>Items:</Text>
-              <List
-                dataArray={order.orderItems}
-                renderRow={x => (
-                  <ListItem key={x.id} avatar>
-                    <Left>
-                      <Thumbnail
-                        source={{
-                          uri: `${REACT_APP_API_Image}` + x.product.imageLink,
-                        }}
-                      />
-                    </Left>
-                    <Body style={styles.body}>
-                      <Left>
-                        <Text>{x.product.name}</Text>
-                      </Left>
-                      <Right>
-                        <Text>{x.product.description}</Text>
-                      </Right>
-                    </Body>
-                  </ListItem>
-              )}></List>
-      </View> 
+        <View style={{ padding: 8 }}>
+          <Text>Room: {order.room}</Text>
+          <Text >Phone: {order.phone}</Text>
+          <Text >Role: {order?.user?.name}</Text>
+          <Text >Status: {order?.status === 3 ? 'pending' : 'delivered'}</Text>
+          <Text >Date Ordered: {order?.dateOrdered?.split('T')[0]}</Text>
+          <Text >Date Retrun: {order?.returnDate?.split('T')[0]}</Text>
+          <Text >Total Product: {order.totalProduct}</Text>
+        </View>
+        <Text style={styles.title}>Items:</Text>
+        <List
+          dataArray={order.orderItems}
+          renderRow={x => (
+            <ListItem key={x.id} avatar>
+              <Left>
+                <Thumbnail
+                  source={{
+                    uri: `${REACT_APP_API_Image}` + x.product.imageLink,
+                  }}
+                />
+              </Left>
+              <Body style={styles.body}>
+                <Left>
+                  <Text>{x.product.name}</Text>
+                </Left>
+                <Right>
+                  <Text>{x.product.description}</Text>
+                </Right>
+              </Body>
+            </ListItem>
+          )}></List>
+      </View>
     </View>
   )
 }
