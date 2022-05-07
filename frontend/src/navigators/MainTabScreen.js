@@ -22,10 +22,11 @@ import scan from '../assets/images/scan.png';
 import CartIcon from '../Shared/CartIcon';
 import CheckInfo from '../screens/Cart/Checkout/CheckInfo';
 import Profile from '../screens/Profile/Profile';
+import { connect } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
-const MainTabScreen = ({navigation}) => {
+const MainTabScreen = ({navigation, userProfile}) => {
   const tabOffsetValue = useRef(new Animated.Value(0)).current;
   return (
     <Tab.Navigator
@@ -53,6 +54,8 @@ const MainTabScreen = ({navigation}) => {
           headerShown: false,
         }}
       />
+
+      {userProfile?.role === 'STUDENT' && (
       <Tab.Screen
         name="CartRoot"
         component={CartNavigator}
@@ -71,7 +74,9 @@ const MainTabScreen = ({navigation}) => {
           ),
           headerShown: false,
         }}
-      />
+      />)}
+
+      {userProfile?.role === 'SECURITY' && (
       <Tab.Screen
         name={'Scan'}
         component={AdminNavigator}
@@ -100,8 +105,10 @@ const MainTabScreen = ({navigation}) => {
           ),
           headerShown: false,
           tabBarStyle: {display: 'none'},
-        }}></Tab.Screen>
+        }}>
+        </Tab.Screen>)}
 
+      {userProfile?.role === 'STUDENT' && (
       <Tab.Screen
         name="CheckInfo"
         component={CheckInfo}
@@ -118,7 +125,8 @@ const MainTabScreen = ({navigation}) => {
           headerShown: false,
           tabBarStyle: { display: "none" },
         }}
-      />
+      />)}
+
       <Tab.Screen
         name="Profile"
         component={Profile}
@@ -139,4 +147,12 @@ const MainTabScreen = ({navigation}) => {
   );
 };
 
-export default MainTabScreen;
+const mapStateToProps = (state) => {
+  const { userProfile } = state;
+  return {
+    userProfile: userProfile,
+  };
+};
+
+export default connect(mapStateToProps)(MainTabScreen);
+

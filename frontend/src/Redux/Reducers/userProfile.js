@@ -6,7 +6,7 @@ import {
 const userProfile = (state = {}, action) => {
     switch (action.type) {
         case LOGIN:
-            return [...state, action.payload]
+            return {...state, ...action.payload}
         case LOGOUT:
             return state = {}
     }

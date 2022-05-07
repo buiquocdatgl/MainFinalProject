@@ -32,6 +32,7 @@ const CheckInfo = (props) => {
               console.log(e);
             });
     };
+    console.log(order);
 
   return (
     <View style={{marginTop:50}}>
@@ -44,6 +45,7 @@ const CheckInfo = (props) => {
             <View style={{padding: 8}}>
                 <Text>Room: {order.room}</Text>
                 <Text >Phone: {order.phone}</Text>
+                <Text >Role: {order?.user?.name}</Text>
                 <Text >Date Ordered: {order.dateOrdered}</Text>
                 <Text >Date Retrun: {order.returnDate}</Text>
                 <Text >Total Product: {order.totalProduct}</Text>

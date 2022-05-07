@@ -19,8 +19,6 @@ const Checkout = (props) => {
   const [returnDate, setReturnDate] = useState(new Date())
   const [datePickerVisible, setDatePickerVisibility] = useState(false);
 
-  console.log('asdasdsa');
-  console.log(props.userProfile);
 
   useEffect(() => {
     setOrderItems(props.cartItems);

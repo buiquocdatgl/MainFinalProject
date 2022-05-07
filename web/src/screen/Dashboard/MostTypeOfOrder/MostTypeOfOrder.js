@@ -4,7 +4,7 @@ import ChartIcon from '../MostOrder/chartIcon'
 
 function MostTypeOfOrder() {
     return (
-        <div className="flex flex-col p-6 bg-gray-900 rounded-lg gap-y-12 mt-10">
+        <div className="flex flex-col p-6 bg-gray-900 rounded-lg gap-y-12">
             <div className="flex justify-between items-center">
                 <h2 className="text-xl font-semibold leading-loose text-white">Most type of order</h2>
                 <button className="flex gap-x-2.5 py-3 px-4 rounded-lg border border-gray-700">

@@ -76,7 +76,6 @@ const SignInScreen = ({navigation, addUser}) => {
                 .then(res => res.json())
                 .then((data) => {
                     setUser(data)
-                    console.log(data);
                     addUser(data)
                 })
                 
@@ -125,7 +124,7 @@ const mapDispatchToProps = (dispatch) => {
       addUser: (user) =>
         dispatch(actions.loginUser(user)),
   };
-  };
+};
 
 
 const { height } = Dimensions.get("screen");

@@ -16,6 +16,7 @@ const Confirm = (props, navigation) => {
 
   const [productUpdate, setProductUpdate] = useState();
 
+
   useEffect(() => {
     if (finalOrder) {
       getProducts(finalOrder);
@@ -24,6 +25,7 @@ const Confirm = (props, navigation) => {
       setProductUpdate();
     };
   }, [props]);
+
 
   const getProducts = x => {
     const order = x.order;
@@ -61,7 +63,7 @@ const Confirm = (props, navigation) => {
       phone: order.phone,
       returnDate: order.returnDate,
       status: order.status,
-
+      user: props.userProfile._id
     };
 
     axios
@@ -99,6 +101,7 @@ const Confirm = (props, navigation) => {
             <View style={{padding: 8}}>
               <Text>Room: {finalOrder.order.room}</Text>
               <Text>Phone: {finalOrder.order.phone}</Text>
+              <Text>name: {props.userProfile.name}</Text>
             </View>
             <Text style={styles.title}>Items:</Text>
             {productUpdate && (
@@ -132,6 +135,14 @@ const Confirm = (props, navigation) => {
       </View>
     </ScrollView>
   );
+};
+
+const mapStateToProps = (state) => {
+  const { cartItems, userProfile } = state;
+  return {
+    cartItems: cartItems,
+    userProfile: userProfile,
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -173,4 +184,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, mapDispatchToProps)(Confirm);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Confirm);

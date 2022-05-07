@@ -6,8 +6,11 @@ import EasyButton from '../../Shared/StyledComponents/EasyButton';
 import Header from '../../component/Header';
 import IconButton from '../../component/IconButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { connect } from "react-redux";
 
-function Profile() {
+function Profile(props) {
+
+    console.log(props.userProfile);
 
     function renderHeader() {
         return (
@@ -32,15 +35,17 @@ function Profile() {
                     <Image
                         style={styles.tinyLogo}
                         source={{
-                            uri: 'https://reactnative.dev/img/tiny_logo.png',
+                            uri: `${props.userProfile.avatar}`,
                         }}
                     />
                     <View style={{ marginLeft: 20 }}>
                         <Text style={[styles.title, {
                             marginTop: 10,
                             marginBottom: 5,
-                        }]}>John Doe</Text>
-                        <Text style={styles.caption}>@j_doe</Text>
+                        }]}>
+                            {`${props.userProfile.name}`}
+                        </Text>
+                        <Text style={styles.caption}>{`${props.userProfile.email}`}</Text>
                     </View>
                 </View>
             </View>
@@ -55,7 +60,7 @@ function Profile() {
                 </View>
                 <View style={styles.row}>
                     <Icon name="email" color="#777777" size={20} />
-                    <Text style={{ color: "#777777", marginLeft: 20 }}>john_doe@email.com</Text>
+                    <Text style={{ color: "#777777", marginLeft: 20 }}>{`${props.userProfile.email}`}</Text>
                 </View>
             </View>
             <View style={styles.infoBoxWrapper}>
@@ -164,4 +169,11 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Profile
+const mapStateToProps = (state) => {
+    const { userProfile } = state;
+    return {
+      userProfile: userProfile,
+    };
+  };
+  
+export default connect(mapStateToProps)(Profile);
