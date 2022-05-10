@@ -21,6 +21,7 @@ import AdminNavigator from './AdminNavigator';
 import scan from '../assets/images/scan.png';
 import CartIcon from '../Shared/CartIcon';
 import CheckInfo from '../screens/Cart/Checkout/CheckInfo';
+import Success from '../screens/Cart/Checkout/Success';
 import Profile from '../screens/Profile/Profile';
 import { connect } from "react-redux";
 

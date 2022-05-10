@@ -10,7 +10,6 @@ import { images, COLORS, SIZES, FONTS } from '../../../constants/index';
 
 function Success() {
 
-
   return (
     <View
         style={{
@@ -62,7 +61,6 @@ function Success() {
                 marginBottom: SIZES.padding,
                 borderRadius: SIZES.radius,
             }}
-            // onPress={() => navigation.navigate("Delivery")}
         />
     </View>
   )

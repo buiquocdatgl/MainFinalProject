@@ -12,7 +12,7 @@ import {
 import ErrorAlert from './ErrorAler';
 import { Link } from 'react-router-dom';
 
-function Login({ history, na}) {
+function Login({ history}) {
 
     const initialSate = {
         id: 0,
@@ -40,7 +40,8 @@ function Login({ history, na}) {
             setAccessToken(data._id);
             return data._id;
         })
-        .then(id => fetch(`${serverUrl}/api/users/me/${id}`, {
+        .then(id => 
+            fetch(`${serverUrl}/api/users/me/${id}`, {
             method: 'GET',
             headers: {
                 accept: 'application/json',
@@ -49,9 +50,9 @@ function Login({ history, na}) {
         .then(res => res.json())
         .then((data) => {
             setUser(data)
-
         })
         .catch(setError);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -73,8 +74,6 @@ function Login({ history, na}) {
         
     }, [dispatch , user])
     
-    console.log(user)
-
     return (
         <div className="box">
             <button

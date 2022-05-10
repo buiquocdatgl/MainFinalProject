@@ -25,7 +25,7 @@ const auth0ClientId = "fmIHlH0lBYabhVc6pHKcAs1IzqchnnXZLuYKQAiy";
 const authorizationEndpoint = "https://gae-gw.systems/oauth/authorize/";
 
 const useProxy = Platform.select({ web: false, default: true });
-const redirectUri = AuthSession.makeRedirectUri({ useProxy });
+const redirectUri = AuthSession.makeRedirectUri({ useProxy }); // một function của expo authenticate giúp tạo ra một đường link trỏ về GMM mobile app 
 
 
 
@@ -36,11 +36,11 @@ const SignInScreen = ({navigation, addUser}) => {
     const [error, setError] = useState(null);
 
 
-    // Request
+    // Nó sẽ gửi yêu cầu tới authorizationEndpoint với các param là clientId,redirectUri và scopes của ứng dụng mobile đối với việc truy cập vào tài nguyên của GAE app
     const [request, result, promptAsync] = AuthSession.useAuthRequest(
         {
             usePKCE: true,
-            redirectUri,
+            redirectUri, 
             clientId: auth0ClientId,
             // id_token will return a JWT token
             responseType: "code",

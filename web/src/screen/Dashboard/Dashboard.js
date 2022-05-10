@@ -8,6 +8,7 @@ import {
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  getOrder
 } from "../../apiServices/index";
 import { toast } from "react-toastify";
 import { ErrorMessage } from "@hookform/error-message";
@@ -34,7 +35,8 @@ const productFormValidationSchema = yup.object({
 });
 
 function Dashboard() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState();
+  const [order, setOrder] = useState({});
   const [open, setOpen] = useState(false);
   const [image, setImage] = useState({ preview: "", data: "" });
   const [active, setActive] = useState(1);
@@ -63,20 +65,43 @@ function Dashboard() {
   }, [register]);
 
   const fetchData = async () => {
+
     const { data, status } = await getProduct();
-    if (status === 200) {
-      setProducts((prev) => data);
+    const orderInDB = await getOrder();
+    if (orderInDB.data.length > 0) {
+      const newItem = data.map(item =>{
+        const newBody = {
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          imageLink: item.imageLink,
+          quantity: item.quantity - 1
+        }
+        return newBody
+      })
+      Promise.all(newItem);
+      setProducts((prev) => newItem); 
+    }
+    else{
+      setProducts((prev) => data); 
     }
   };
 
+
   useEffect(() => {
-    fetchData();
-    document.title = "Product";
-  }, []);
+    const interval = setInterval(() => {
+      fetchData()
+      
+    }, 5000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
 
   const onSubmit = async (formdata) => {
     const submitFormData = new FormData();
-    console.log(formdata);
     submitFormData.append("image", image.data);
     submitFormData.append("name", formdata.name);
     submitFormData.append("description", formdata.description);
@@ -92,8 +117,6 @@ function Dashboard() {
     } else {
       toast.error(data.message);
     }
-    console.log(image.data)
-    console.log(submitFormData);
   };
 
   const handleFileChange = (e) => {
@@ -269,7 +292,7 @@ function Dashboard() {
             products?.map((item) => (
               <div
                 className="flex flex-col p-4 w-1/3 bg-gray-900 rounded-lg gap-y-3"
-                key={item.name}
+                key={item.id}
               >
                 <div className="flex items-center gap-x-3">
                   <div className="flex gap-x-4 items-center">

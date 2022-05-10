@@ -16,6 +16,9 @@ export const createProduct = (formData) =>
 export const getProduct = () =>
     apiInstance.get("/product/");
 
+export const getOrder = () =>
+    apiInstance.get("/orders/");
+
 export const getSingleProduct = (id) =>
     apiInstance.get(`/product/${id}`);
 

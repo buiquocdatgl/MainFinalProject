@@ -14,11 +14,9 @@ import { REACT_APP_API } from '../../../../APIUrl';
 import { REACT_APP_API_Image } from '../../../../APIUrl';
 import { images, COLORS, SIZES, FONTS, icons } from '../../../constants/index';
 
-function DeliveryStatus(props) {
+function DeliveryStatus({navigation}) {
 
 
-  const data = props.route.params
-  const [order, setOrder] = useState({});
   const [currenStep, setCurrenStep] = useState(0);
 
   useFocusEffect(
@@ -26,7 +24,6 @@ function DeliveryStatus(props) {
       let isActive = true;
       const interval = setTimeout(() => {
         setCurrenStep(1);
-  
       }, 3000);
 
       return () => {
@@ -79,7 +76,7 @@ function DeliveryStatus(props) {
             fontSize: 18
           }}
         >
-          {`${order?.dateOrdered?.split('T')[0]} / ${order?.returnDate?.split('T')[0]}`}
+          2022-05-11 / 2022-06-11
         </Text>
       </View>
     )
@@ -234,7 +231,7 @@ function DeliveryStatus(props) {
             width: 200,
             marginLeft: 90,
           }}
-          onPress={() => props.navigation.navigate("Success")}
+          onPress={() => navigation.navigate("Success")}
         />
       </View>
     )

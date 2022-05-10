@@ -47,9 +47,6 @@ function OrderReport() {
     fetchDataUser();
   }, []);
 
-  console.log(users);
-
-
   return (
     <div className="p-6 bg-gray-900 rounded-lg h-4/6">
       <div className="flex justify-between items-center pb-4">

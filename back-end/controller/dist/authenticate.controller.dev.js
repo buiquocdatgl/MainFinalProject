@@ -9,7 +9,24 @@ var _require = require('./setting'),
 
 var qs = require('qs');
 
-var Auth = require('../model/auth');
+var Auth = require('../model/auth'); // nói số 4
+
+/* 
+    -back-end sẽ tạo ra một enpoint riêng cho client gửi authorization code và code verifier (nếu có). Sau đó back-end sử dụng các thông tin ứng dụng bao gồm : clientId, clientSecret.
+    The back-end will create a separate endpoint for the client to send the authorization code and code verifier (if any). Then the back-end uses the application information including: clientId, clientSecret.
+
+    - Mục đích của việc sử dụng back-end đóng vai trò là một BFF nhằm support một quy trình xác thực có tính bảo mật cao bởi các giải pháp sau:
+    - The purpose of using the back-end as a BFF is to support a highly secure authentication process by the following solutions:
+        * giúp lưu trữ client_secret khỏi client
+        * help store client_secret from client
+
+        * lưu trữ lại accesstoken và refreshtoken dưới database để thực việc truy vấn đến GAE App 
+        * store the accesstoken and refreshtoken under the database to make queries to GAE App
+
+        * -> mục đích là để các ứng dụng client chỉ nhận về thông tin là một id token đại diện cho row lưu trữ accesstoken và refreshtoken trong mongoDB. Điều này giúp tăng tinh bảo mật
+        * -> purpose is for client applications to only receive information as an id token representing the row that stores the accesstoken and refreshtoken in mongoDB. This increases security
+*/
+
 
 var authenticateControler = {
   login: function login(req, res) {

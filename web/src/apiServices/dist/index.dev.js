@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getUser = exports.deleteProduct = exports.updateProduct = exports.getSingleProduct = exports.getProduct = exports.createProduct = void 0;
+exports.getUser = exports.deleteProduct = exports.updateProduct = exports.getSingleProduct = exports.getOrder = exports.getProduct = exports.createProduct = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -31,6 +31,12 @@ var getProduct = function getProduct() {
 };
 
 exports.getProduct = getProduct;
+
+var getOrder = function getOrder() {
+  return apiInstance.get("/orders/");
+};
+
+exports.getOrder = getOrder;
 
 var getSingleProduct = function getSingleProduct(id) {
   return apiInstance.get("/product/".concat(id));

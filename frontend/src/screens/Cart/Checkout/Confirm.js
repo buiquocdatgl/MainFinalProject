@@ -13,6 +13,7 @@ var {width, height} = Dimensions.get('window');
 
 const Confirm = (props, navigation) => {
   const finalOrder = props.route.params;
+  
 
   const [productUpdate, setProductUpdate] = useState();
 
